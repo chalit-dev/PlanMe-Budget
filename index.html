@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlanMe Budget</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Home page -->
+  <div class="screen active" id="sc-home">
+    <div class="home-center">
+
+      <div class="home-orbit" aria-hidden="true">
+        <span class="ring r1"><span class="spin"><i></i></span></span>
+        <span class="ring r2"><span class="spin"><i></i></span></span>
+        <span class="ring r3"><span class="spin"><i></i></span></span>
+      </div>
+
+      <div class="home-copy">
+        <h1>PlanMe Budget</h1>
+        <p class="sub">วางแผนงบประมาณได้ง่ายๆด้วย PlanMe Budget</p>
+        <button class="btn btn-primary" onclick="goAllCal()">
+          <i class="ti ti-layout-grid"></i> เริ่มวางแผน
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- หน้าวางแพลน -->
+  <div class="screen" id="sc-allcal">
+    <div class="wrap">
+
+      <!-- Header -->
+      <div class="page-header">
+        <svg class="logo-mark" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+          <circle cx="16" cy="16" r="12.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+          <circle cx="16" cy="16" r="3.6" fill="currentColor"/>
+          <circle cx="16" cy="3.5" r="2.2" fill="var(--brass)"/>
+        </svg>
+        <div class="page-title">PlanMe Budget</div>
+      </div>
+
+      <!-- งบที่มี -->
+      <div class="card card-budget">
+        <div class="card-label">งบประมาณที่มีทั้งหมด</div>
+        <label for="budget-input">ระบุจำนวนเงิน (บาท)</label>
+        <div class="money-field">
+          <span class="money-prefix">฿</span>
+          <input type="number" id="budget-input" placeholder="0" oninput="updateSummary()" />
+        </div>
+      </div>
+
+      <!-- สลับมุมมอง -->
+      <div class="view-bar" data-html2canvas-ignore>
+        <div class="seg" role="tablist" aria-label="มุมมองกลุ่มรายการ">
+          <button class="seg-btn active" id="seg-list" role="tab" aria-selected="true" onclick="setView('list')">
+            <i class="ti ti-list" aria-hidden="true"></i> รายการ
+          </button>
+          <button class="seg-btn" id="seg-orbit" role="tab" aria-selected="false" onclick="setView('orbit')">
+            <i class="ti ti-planet" aria-hidden="true"></i> วงโคจร
+          </button>
+        </div>
+      </div>
+
+      <!-- กลุ่มรายการ (มุมมองรายการ) -->
+      <div id="set-list"></div>
+
+      <!-- กลุ่มรายการ (มุมมองวงโคจร) -->
+      <div class="orbit-panel is-hidden" id="view-orbit">
+        <button class="orb-ctl" id="orb-auto" onclick="toggleOrbitAuto()" type="button"></button>
+        <div class="orbit-canvas" id="orbit-canvas"></div>
+        <div class="orbit-hint">แตะที่กลุ่มเพื่อดูรายละเอียด</div>
+      </div>
+
+      <button class="btn new-set-btn" onclick="addSet()">
+        <i class="ti ti-plus"></i> สร้างกลุ่มรายการใหม่
+      </button>
+
+      <!-- สรุปยอด -->
+      <div class="card">
+        <div class="card-label">สรุปงบประมาณ</div>
+        <div class="sum-row">
+          <span class="sum-label">ยอดรวมที่ใช้ทั้งหมด</span>
+          <span class="sum-val" id="total-amount">฿0</span>
+        </div>
+        <div class="sum-row">
+          <span class="sum-label">ยอดคงเหลือ</span>
+          <span class="sum-val ok" id="remaining-amount">฿0</span>
+        </div>
+        <div class="divider"></div>
+        <div class="bottom-row">
+          <button class="btn" onclick="saveAsImage()">
+            <i class="ti ti-photo"></i> บันทึกเป็นรูป
+          </button>
+          <button class="btn" onclick="saveAsNote()">
+            <i class="ti ti-file-text"></i> บันทึกเป็นโน้ต
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
